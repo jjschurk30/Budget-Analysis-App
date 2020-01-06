@@ -1,0 +1,209 @@
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace IS6805_Group1_Final_SS19
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            textBox_Income1.Text = "0";
+            textBox_Income2.Text = "0";
+            textBox_Rent.Text = "0";
+            textBox_Utilities.Text = "0";
+            textBox_CarPayment.Text = "0";
+            textBox_CellPhone.Text = "0";
+            textBox_Groceries.Text = "0";
+        }
+
+        private void Label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            decimal income1 = Convert.ToDecimal(textBox_Income1.Text);
+            decimal income2 = Convert.ToDecimal(textBox_Income2.Text);
+            decimal totalIncome = income1 + income2;
+
+            label_TotalIncomeAmt.Text = $"{totalIncome:C}";
+
+            decimal rent = Convert.ToDecimal(textBox_Rent.Text);
+            decimal utilities = Convert.ToDecimal(textBox_Utilities.Text);
+            decimal carpayment = Convert.ToDecimal(textBox_CarPayment.Text);
+            decimal cellphone = Convert.ToDecimal(textBox_CellPhone.Text);
+            decimal groceries = Convert.ToDecimal(textBox_Groceries.Text);
+            decimal totalExpenses = rent + utilities + carpayment + cellphone + groceries;
+
+            label_TotalExpensesAmt.Text = $"{totalExpenses:C}";
+
+            //  We converted each of the 5 Expenses calculations to use the Expenses class below
+            //  The class is used 5 times for each of the Expense Categories
+
+
+            if (totalExpenses > 0)
+            {
+                //decimal rentpct = Math.Round(rent / totalExpenses * 100);
+                //label_RentPct.Text = rentpct.ToString() + " % of Total Expenses";
+
+                Expenses rentttext = new Expenses("Rent", Math.Round(rent / totalExpenses * 100));
+                label_RentPct.Text = rentttext.getAmount() + " % of Total Expenses";
+
+                //decimal utilitiespct = Math.Round(utilities / totalExpenses * 100);
+                //label_UtilitiesPct.Text = utilitiespct.ToString() + " % of Total Expenses";
+
+                Expenses utilitiestext = new Expenses("Utilities", Math.Round(utilities / totalExpenses * 100));
+                label_UtilitiesPct.Text = utilitiestext.getAmount() + " % of Total Expenses";
+
+                //decimal carpaymentpct = Math.Round(carpayment / totalExpenses * 100);
+                //label_CarPaymentPct.Text = carpaymentpct.ToString() + " % of Total Expenses";
+
+                Expenses carpaymenttext = new Expenses("Car Payment", Math.Round(carpayment / totalExpenses * 100));
+                label_CarPaymentPct.Text = carpaymenttext.getAmount() + " % of Total Expenses";
+
+                //decimal cellphonepct = Math.Round(cellphone / totalExpenses * 100);
+                //label_CellPhonePct.Text = cellphonepct.ToString() + " % of Total Expenses";
+
+                Expenses cellphonetext = new Expenses("Cell Phone", Math.Round(cellphone / totalExpenses * 100));
+                label_CellPhonePct.Text = cellphonetext.getAmount() + " % of Total Expenses";
+
+                //decimal groceriespct = Math.Round(groceries / totalExpenses * 100);
+                //label_GroceriesPct.Text = groceriespct.ToString() + " % of Total Expenses";
+
+                Expenses groceriestext = new Expenses("Groceries", Math.Round(groceries / totalExpenses * 100));
+                label_GroceriesPct.Text = groceriestext.getAmount() + " % of Total Expenses";
+
+            }
+
+            decimal totalexpensepct = Math.Round(totalExpenses / totalIncome * 100);
+            if (totalexpensepct > 100)
+            {
+                //label_TotalExpensesPct.Text = "Warning! Expenses are greater than Income!";
+                label_TotalExpensesPct.Text = totalexpensepct.ToString() + " % of Income";
+                MessageBox.Show("Warning! Expenses are greater than Income!");
+            }
+            else if (totalexpensepct > 80)
+            {
+                //label_TotalExpensesPct.Text = "Warning! You are spending " + totalexpensepct.ToString() + " % of Income.";
+                label_TotalExpensesPct.Text = totalexpensepct.ToString() + " % of Income";
+                MessageBox.Show("Warning! You are spending " + totalexpensepct.ToString() + " % of Income.");
+            }
+            else
+            {
+                label_TotalExpensesPct.Text = totalexpensepct.ToString() + " % of Income";
+            }
+
+            decimal netincome = totalIncome - totalExpenses;
+            label_NetIncomeAmt.Text = $"{netincome:C}";
+            if (netincome < 0)
+            {
+                this.label_NetIncomeAmt.ForeColor = System.Drawing.Color.Red;
+            }
+        }
+
+
+        private void Label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button_ClearForm_Click(object sender, EventArgs e)
+        {
+
+            textBox_Income1.Text = "0";
+            textBox_Income2.Text = "0";
+            label_TotalIncomeAmt.Text = "_________";
+            textBox_Rent.Text = "0";
+            textBox_Utilities.Text = "0";
+            textBox_CarPayment.Text = "0";
+            textBox_CellPhone.Text = "0";
+            textBox_Groceries.Text = "0";
+            label_TotalExpensesAmt.Text = "_________";
+            label_RentPct.Text = "___  %";
+            label_UtilitiesPct.Text = "___  %";
+            label_CarPaymentPct.Text = "___  %";
+            label_CellPhonePct.Text = "___  %";
+            label_GroceriesPct.Text = "___  %";
+            label_TotalExpensesPct.Text = "___  %";
+            label_NetIncomeAmt.Text = "_________";
+
+        }
+
+        private void label_TotalIncomeAmt_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_Income1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+        private void label_NetIncomeAmt_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+
+    public class Form
+    {
+    }
+
+    public partial class Expenses
+    {
+        private String name;
+        private decimal amount;
+        public Expenses(String name, decimal amount)
+        {
+            this.name = name;
+            this.amount = amount;
+        }
+        public void setName(String name)
+        {
+            this.name = name;
+        }
+        public void setAmount(decimal amount)
+        {
+            this.amount = amount;
+        }
+        public String getName()
+        {
+            return this.name;
+        }
+        public decimal getAmount()
+        {
+            return this.amount;
+        }
+
+    }
+}
